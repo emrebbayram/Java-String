@@ -1,0 +1,44 @@
+public HashMap<String,Integer> SimilarityTest (String string1, ArrayList<String> stringList){
+        HashMap<String, Integer> datalar = new HashMap<>();
+        for (String string2 : stringList){
+            int puan = 0;
+            String hesap;
+            String ikinci;
+            if (string1.length() >= string2.length()){
+                hesap = string2;
+                ikinci = string1;
+            }else {
+                hesap = string1;
+                ikinci = string2;
+            }
+            for (int i = 0;i < hesap.length();i++){
+                if (hesap.charAt(i) == ikinci.charAt(i)){
+                    puan += 10;
+                }
+                if (i > 0){
+                    if (hesap.charAt(i - 1) == ikinci.charAt(i - 1)){
+                        puan += 20;
+                    }
+                }
+            }
+            puan -= (ikinci.length() - hesap.length());
+            datalar.put(string2,puan);
+        }
+        int maxDeger = 0;
+        HashMap<String,Integer> son = new HashMap<>();
+        for(String key: datalar.keySet()){
+            if (datalar.get(key) > maxDeger){
+                maxDeger = datalar.get(key);
+            }
+        }
+        for (int i = maxDeger;i > 0;i--){
+            for(String key: datalar.keySet()){
+                if (datalar.get(key) == i){
+                    System.out.println(key);
+                    son.put(key,i);
+                }
+            }
+        }
+
+        return son;
+    }
